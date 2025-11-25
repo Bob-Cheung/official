@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zhangliang - The Art of PU Material Innovation</title>
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Load Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Load Custom Fonts (Outfit and Space Grotesk) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* Custom Tailwind Configuration and Base Styles */
+    :root {
+      --bg-slate: #0f172a;
+      --card-slate: #1e293b;
+      --primary-teal: #2dd4bf;
+      --secondary-pink: #f472b6;
+      --text-light: #f8fafc;
+      --text-muted: #cbd5e1;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-slate);
+      color: var(--text-light);
+      min-height: 100vh;
+    }
+
+    .space-grotesk {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* Subtle Background Glow */
+    .bg-glow {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bg-glow::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(45, 212, 191, 0.1) 0%, rgba(15, 23, 42, 0) 70%);
+      /* Teal glow */
+      top: -200px;
+      right: -200px;
+      z-index: 0;
+      border-radius: 50%;
+    }
+
+    .bg-glow::after {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(244, 114, 182, 0.08) 0%, rgba(15, 23, 42, 0) 70%);
+      /* Pink glow */
+      bottom: -150px;
+      left: -150px;
+      z-index: 0;
+      border-radius: 50%;
+    }
+
+    section>* {
+      position: relative;
+      /* Ensure content stays above the glow */
+      z-index: 1;
+    }
+
+    /* Custom Button Style */
+    .btn-primary {
+      background-image: linear-gradient(90deg, var(--primary-teal), var(--secondary-pink));
+      color: var(--bg-slate);
+      font-weight: 700;
+      padding: 12px 30px;
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(45, 212, 191, 0.3);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+      box-shadow: 0 6px 20px rgba(244, 114, 182, 0.5);
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bg-slate': 'var(--bg-slate)',
+            'card-slate': 'var(--card-slate)',
+            'primary-teal': 'var(--primary-teal)',
+            'secondary-pink': 'var(--secondary-pink)',
+          },
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            heading: ['Space Grotesk', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="antialiased">
+
+  <!-- Header & Navigation -->
+  <header class="sticky top-0 z-50 bg-bg-slate/90 backdrop-blur-md border-b border-card-slate shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+      <div class="text-3xl font-bold space-grotesk text-primary-teal">
+        ZHANG<span class="text-secondary-pink">LIANG</span>
+      </div>
+      <nav class="hidden md:flex space-x-8 text-sm font-medium">
+        <a href="#products" class="text-text-muted hover:text-primary-teal transition duration-200">Products</a>
+        <a href="#craft" class="text-text-muted hover:text-primary-teal transition duration-200">Our Craft</a>
+        <a href="#why-us" class="text-text-muted hover:text-primary-teal transition duration-200">Why Us</a>
+        <a href="#contact" class="btn-primary py-2 px-5 text-sm">Get a Quote</a>
+      </nav>
+      <button class="md:hidden text-2xl text-primary-teal" aria-label="Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- 1. Hero Section -->
+  <section class="bg-glow text-center py-20 md:py-32 border-b border-card-slate">
+    <div class="max-w-4xl mx-auto px-4">
+      <p class="text-lg uppercase tracking-widest text-secondary-pink font-semibold mb-4">PU MATERIAL INNOVATION</p>
+      <h1 class="space-grotesk text-6xl md:text-8xl font-extrabold leading-tight mb-6">
+        The Art of <br class="hidden sm:block">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary-teal to-secondary-pink">Premium PU
+          Toys</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-text-muted mb-10 max-w-2xl mx-auto">
+        Specializing in high-quality Polyurethane solutions for stress relief, sensory development, and safe sports
+        training.
+      </p>
+      <a href="#products" class="btn-primary inline-block text-lg">
+        Explore Our Collections <i class="fa-solid fa-arrow-right ml-2"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- 2. Our Craft & Manufacturing Section -->
+  <section id="craft" class="py-16 md:py-24 bg-card-slate/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="space-grotesk text-4xl font-bold mb-4 border-l-4 border-primary-teal pl-4">Our Craft & Quality</h2>
+      <p class="text-xl text-text-muted mb-12">Focused on precision, durability, and safety in every batch.</p>
+
+      <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+        <!-- Precision Molding -->
+        <div class="p-8 rounded-xl bg-card-slate shadow-2xl border border-primary-teal/20">
+          <i class="fa-solid fa-industry text-4xl text-primary-teal mb-4"></i>
+          <h3 class="space-grotesk text-2xl font-semibold mb-3">Precision Molding</h3>
+          <p class="text-text-muted">We utilize advanced molding techniques to create complex shapes with seamless,
+            perfect finishes. Every curve is calculated for optimal durability and aesthetic appeal.</p>
+        </div>
+        <!-- Material Safety -->
+        <div class="p-8 rounded-xl bg-card-slate shadow-2xl border border-secondary-pink/20">
+          <i class="fa-solid fa-shield-heart text-4xl text-secondary-pink mb-4"></i>
+          <h3 class="space-grotesk text-2xl font-semibold mb-3">Certified Material Safety</h3>
+          <p class="text-text-muted">Safety is paramount. All our PU materials are rigorously tested to meet
+            international standards (ASTM, EN71), guaranteed free from heavy metals and harmful phthalates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Product Section: Slow Rebound (Stress Toys) -->
+  <section id="products" class="py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+      <!-- Content Column -->
+      <div>
+        <span class="text-sm uppercase tracking-widest text-secondary-pink font-semibold">Stress Relief & Sensory</span>
+        <h2 class="space-grotesk text-5xl font-extrabold leading-tight mt-2 mb-6">Serenity in Squeezing</h2>
+
+        <p class="text-lg text-text-muted mb-6">
+          Our signature slow-rebound foam is engineered for the perfect tactile response. It compresses effortlessly and
+          returns to shape with a satisfying, gradual motion, promoting calm and focus.
+        </p>
+
+        <ul class="space-y-3 text-lg">
+          <li class="flex items-start">
+            <i class="fa-solid fa-check-circle text-primary-teal mt-1 mr-3"></i>
+            <span>Ultra-soft touch feel, ideal for anxiety relief.</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fa-solid fa-check-circle text-primary-teal mt-1 mr-3"></i>
+            <span>Customizable shapes and appealing, subtle scents.</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fa-solid fa-check-circle text-primary-teal mt-1 mr-3"></i>
+            <span>Durable and non-toxic for everyday use.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Image Column -->
+      <div class="rounded-2xl overflow-hidden shadow-2xl h-[400px] bg-card-slate flex items-center justify-center p-8">
+        <img src="https://placehold.co/600x400/1e293b/cbd5e1?text=Slow+Rebound+Toy+Mockup" alt="Slow Rebound PU Toy"
+          class="w-full h-full object-contain rounded-xl">
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Product Section: Sports Balls -->
+  <section class="py-16 md:py-24 bg-card-slate/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+
+      <!-- Image Column (Order reversed for layout variation) -->
+      <div
+        class="rounded-2xl overflow-hidden shadow-2xl h-[400px] bg-card-slate flex items-center justify-center p-8 md:order-2">
+        <img src="https://placehold.co/600x400/1e293b/cbd5e1?text=PU+Sports+Ball+Collection"
+          alt="Pile of colorful PU sports balls" class="w-full h-full object-contain rounded-xl">
+      </div>
+
+      <!-- Content Column -->
+      <div class="md:order-1">
+        <span class="text-sm uppercase tracking-widest text-primary-teal font-semibold">Indoor Play & Training</span>
+        <h2 class="space-grotesk text-5xl font-extrabold leading-tight mt-2 mb-6">Safe & Active PU Sports</h2>
+
+        <p class="text-lg text-text-muted mb-6">
+          Our range of PU foam sports balls replicates the flight and feel of real equipment while ensuring safety for
+          indoor play and training. Experience the bounce without the bruise!
+        </p>
+
+        <h3 class="space-grotesk text-xl font-bold text-secondary-pink mb-3">Perfect for:</h3>
+        <div class="flex flex-wrap gap-4">
+          <span class="px-4 py-2 bg-bg-slate rounded-full text-sm font-medium border border-secondary-pink/50">Indoor
+            Basketball</span>
+          <span class="px-4 py-2 bg-bg-slate rounded-full text-sm font-medium border border-secondary-pink/50">Youth
+            Soccer Training</span>
+          <span class="px-4 py-2 bg-bg-slate rounded-full text-sm font-medium border border-secondary-pink/50">Golf
+            Practice</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Why Choose Us / Value Proposition -->
+  <section id="why-us" class="py-16 md:py-24 text-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="space-grotesk text-5xl font-extrabold mb-4">Why Partner with Zhangliang?</h2>
+      <p class="text-xl text-text-muted mb-12 max-w-3xl mx-auto">
+        We combine manufacturing excellence with market responsiveness to deliver quality every time.
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Tile 1: Custom Design -->
+        <div
+          class="p-8 rounded-2xl bg-card-slate shadow-xl transition duration-300 hover:scale-[1.02] border-t-4 border-primary-teal">
+          <i class="fa-solid fa-palette text-5xl text-primary-teal mb-4"></i>
+          <h3 class="space-grotesk text-2xl font-semibold mb-2 text-text-light">Custom Design</h3>
+          <p class="text-text-muted">Full OEM/ODM capabilities to bring your unique character and product designs to
+            life seamlessly.</p>
+        </div>
+
+        <!-- Tile 2: Quality & Safety -->
+        <div
+          class="p-8 rounded-2xl bg-card-slate shadow-xl transition duration-300 hover:scale-[1.02] border-t-4 border-secondary-pink">
+          <i class="fa-solid fa-certificate text-5xl text-secondary-pink mb-4"></i>
+          <h3 class="space-grotesk text-2xl font-semibold mb-2 text-text-light">Certified Quality</h3>
+          <p class="text-text-muted">Unwavering compliance with global safety standards ensures peace of mind for you
+            and your customers.</p>
+        </div>
+
+        <!-- Tile 3: Supply Chain -->
+        <div
+          class="p-8 rounded-2xl bg-card-slate shadow-xl transition duration-300 hover:scale-[1.02] border-t-4 border-primary-teal">
+          <i class="fa-solid fa-truck-fast text-5xl text-primary-teal mb-4"></i>
+          <h3 class="space-grotesk text-2xl font-semibold mb-2 text-text-light">Reliable Supply</h3>
+          <p class="text-text-muted">Scalable manufacturing capacity to meet high-volume, global demand efficiently and
+            on time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer / Contact Section -->
+  <footer id="contact" class="bg-card-slate/70 border-t border-card-slate py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="space-grotesk text-4xl font-bold mb-6">Ready to Collaborate?</h2>
+      <p class="text-lg text-text-muted mb-8">Let's discuss how Zhangliang's premium PU materials can elevate your
+        product line.</p>
+
+      <a href="mailto:contact@zhangliang.com" class="btn-primary inline-block text-lg mb-10">
+        Contact Our Team Today <i class="fa-solid fa-envelope ml-2"></i>
+      </a>
+
+      <div class="text-text-muted text-sm space-y-2">
+        <p>
+          <i class="fa-solid fa-envelope text-secondary-pink mr-2"></i> contact@zhangliang.com
+        </p>
+        <p>
+          <i class="fa-solid fa-globe text-secondary-pink mr-2"></i> www.zhangliang-toys.com
+        </p>
+        <p class="pt-6 text-xs">&copy; 2025 Zhangliang. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SparkleToys - Official Website</title>
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Load Inter font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <!-- Load Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Custom modal styles */
+    #alert-modal {
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    #alert-modal.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #alert-modal.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Simple spinning animation for the logo */
+    .logo-spin {
+      animation: spin 3s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotateY(0deg);
+      }
+
+      to {
+        transform: rotateY(360deg);
+      }
+    }
+
+    /* Style for active language button */
+    .lang-btn.active {
+      font-weight: bold;
+      color: #2563EB;
+      /* blue-600 */
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="#" class="flex items-center space-x-2 text-2xl font-bold text-blue-600">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="text-blue-500">
+          <path d="M12 2L15.09 8.09L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.09L12 2Z"
+            fill="currentColor" />
+        </svg>
+        <span data-lang-key="header.title">SparkleToys</span>
+      </a>
+
+      <!-- Navigation Links (Desktop) -->
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="#" class="text-gray-600 hover:text-blue-600 font-medium" data-lang-key="nav.home">Home</a>
+        <a href="#shop" class="text-gray-600 hover:text-blue-600 font-medium" data-lang-key="nav.shop">Shop</a>
+        <a href="#about" class="text-gray-600 hover:text-blue-600 font-medium" data-lang-key="nav.about">About Us</a>
+        <a href="#contact" class="text-gray-600 hover:text-blue-600 font-medium" data-lang-key="nav.contact">Contact</a>
+      </div>
+
+      <!-- Icons (Desktop) -->
+      <div class="hidden md:flex items-center space-x-4">
+        <div class="relative">
+          <input type="text" data-lang-key="header.search" placeholder="Search..."
+            class="px-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600">
+            <i data-lucide="search" class="w-5 h-5"></i>
+          </button>
+        </div>
+        <a href="#" class="relative text-gray-600 hover:text-blue-600 p-2 rounded-full hover:bg-gray-100">
+          <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+          <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-blue-500 ring-2 ring-white"></span>
+        </a>
+        <!-- Language Switcher (Desktop) -->
+        <div class="flex space-x-2 text-sm font-medium">
+          <button id="lang-en-btn" class="lang-btn text-gray-500 hover:text-blue-600">English</button>
+          <span>|</span>
+          <button id="lang-zh-btn" class="lang-btn text-gray-500 hover:text-blue-600">中文</button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden">
+        <button id="mobile-menu-btn" class="text-gray-600 hover:text-blue-600">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
+      <div class="px-4 py-3 space-y-3">
+        <a href="#" class="block text-gray-600 hover:text-blue-600 font-medium" data-lang-key="nav.home">Home</a>
+        <a href="#shop" class="block text-gray-600 hover:text-blue-600 font-medium" data-lang-key="nav.shop">Shop</a>
+        <a href="#about" class="block text-gray-600 hover:text-blue-600 font-medium" data-lang-key="nav.about">About
+          Us</a>
+        <a href="#contact" class="block text-gray-600 hover:text-blue-600 font-medium"
+          data-lang-key="nav.contact">Contact</a>
+      </div>
+      <div class="px-4 py-3 border-t border-gray-200">
+        <div class="relative">
+          <input type="text" data-lang-key="header.search" placeholder="Search..."
+            class="w-full px-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600">
+            <i data-lucide="search" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Language Switcher (Mobile) -->
+      <div class="px-4 py-3 border-t border-gray-200 flex justify-center space-x-4">
+        <button id="lang-en-btn-mobile" class="lang-btn text-gray-500 hover:text-blue-600 font-medium">English</button>
+        <span class="text-gray-400">|</span>
+        <button id="lang-zh-btn-mobile" class="lang-btn text-gray-500 hover:text-blue-600 font-medium">中文</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-r from-blue-500 to-indigo-600 text-white overflow-hidden">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 flex flex-col md:flex-row items-center">
+        <!-- Text Content -->
+        <div class="md:w-1/2 text-center md:text-left z-10">
+          <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4" data-lang-key="hero.title">Spark Imagination.
+          </h1>
+          <p class="text-lg md:text-2xl mb-8 text-blue-100" data-lang-key="hero.subtitle">Discover toys that inspire
+            creativity and endless hours of fun.</p>
+          <a href="#shop"
+            class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-100 shadow-lg transition duration-300 transform hover:scale-105"
+            data-lang-key="hero.button">Shop Now</a>
+        </div>
+        <!-- Image Content -->
+        <div class="md:w-1/2 mt-10 md:mt-0 relative">
+          <img src="https://placehold.co/600x400/FFFFFF/3B82F6?text=Awesome+New+Toy!" alt="Colorful toys"
+            class="rounded-lg shadow-2xl mx-auto"
+            onerror="this.onerror=null;this.src='https://placehold.co/600x400/E0E0E0/B0B0B0?text=Image+Not+Found';">
+          <!-- Decorative shapes -->
+          <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/20 rounded-full opacity-50 logo-spin"></div>
+          <div class="absolute -bottom-10 -left-10 w-24 h-24 bg-white/20 rounded-lg transform rotate-12 opacity-50">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="shop" class="py-16 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-10" data-lang-key="featured.title">Featured Toys</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Product Card 1 -->
+          <div
+            class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1">
+            <img src="https://placehold.co/400x300/F3E8FF/8B5CF6?text=Plush+Dragon" alt="Plush Dragon"
+              class="w-full h-48 object-cover"
+              onerror="this.onerror=null;this.src='https://placehold.co/400x300/E0E0E0/B0B0B0?text=Toy';">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2" data-lang-key="product1.name">CuddleWing Dragon</h3>
+              <p class="text-gray-600 mb-4" data-lang-key="product1.desc">The softest dragon in all the land. Ready for
+                adventure!</p>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-blue-600">$24.99</span>
+                <button
+                  class="add-to-cart-btn bg-blue-600 text-white px-4 py-2 rounded-full font-medium hover:bg-blue-700 transition duration-300 flex items-center space-x-2">
+                  <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                  <span data-lang-key="product.add">Add</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Product Card 2 -->
+          <div
+            class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1">
+            <img src="https://placehold.co/400x300/E0F2FE/0EA5E9?text=Robot+Builder" alt="Robot Builder Kit"
+              class="w-full h-48 object-cover"
+              onerror="this.onerror=null;this.src='https://placehold.co/400x300/E0E0E0/B0B0B0?text=Toy';">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2" data-lang-key="product2.name">RoboBuilder Kit</h3>
+              <p class="text-gray-600 mb-4" data-lang-key="product2.desc">Build and code your very own robot companion.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-blue-600">$59.99</span>
+                <button
+                  class="add-to-cart-btn bg-blue-600 text-white px-4 py-2 rounded-full font-medium hover:bg-blue-700 transition duration-300 flex items-center space-x-2">
+                  <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                  <span data-lang-key="product.add">Add</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Product Card 3 -->
+          <div
+            class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1">
+            <img src="https://placehold.co/400x300/FFF7ED/F97316?text=Wood+Blocks" alt="Wooden Blocks Set"
+              class="w-full h-48 object-cover"
+              onerror="this.onerror=null;this.src='https://placehold.co/400x300/E0E0E0/B0B0B0?text=Toy';">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2" data-lang-key="product3.name">Classic Wood Blocks</h3>
+              <p class="text-gray-600 mb-4" data-lang-key="product3.desc">100-piece set for limitless building
+                possibilities.</p>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-blue-600">$34.99</span>
+                <button
+                  class="add-to-cart-btn bg-blue-600 text-white px-4 py-2 rounded-full font-medium hover:bg-blue-700 transition duration-300 flex items-center space-x-2">
+                  <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                  <span data-lang-key="product.add">Add</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Product Card 4 -->
+          <div
+            class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1">
+            <img src="https://placehold.co/400x300/FEF2F2/EF4444?text=Art+Easel" alt="Kids Art Easel"
+              class="w-full h-48 object-cover"
+              onerror="this.onerror=null;this.src='https://placehold.co/400x300/E0E0E0/B0B0B0?text=Toy';">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2" data-lang-key="product4.name">Creator's Art Easel</h3>
+              <p class="text-gray-600 mb-4" data-lang-key="product4.desc">Double-sided easel with whiteboard and
+                chalkboard.</p>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-blue-600">$49.99</span>
+                <button
+                  class="add-to-cart-btn bg-blue-600 text-white px-4 py-2 rounded-full font-medium hover:bg-blue-700 transition duration-300 flex items-center space-x-2">
+                  <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                  <span data-lang-key="product.add">Add</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Section -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-10" data-lang-key="categories.title">Shop by Category</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <!-- Category Card 1 -->
+          <a href="#" class="group block">
+            <div class="relative rounded-lg overflow-hidden shadow-md h-48">
+              <img src="https://placehold.co/300x200/ECFCCB/84CC16?text=Building" alt="Building Blocks"
+                class="w-full h-full object-cover transition duration-300 transform group-hover:scale-110">
+              <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <h3 class="text-white text-2xl font-bold" data-lang-key="category.building">Building</h3>
+              </div>
+            </div>
+          </a>
+          <!-- Category Card 2 -->
+          <a href="#" class="group block">
+            <div class="relative rounded-lg overflow-hidden shadow-md h-48">
+              <img src="https://placehold.co/300x200/FEE2E2/F87171?text=Plushies" alt="Plush Toys"
+                class="w-full h-full object-cover transition duration-300 transform group-hover:scale-110">
+              <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <h3 class="text-white text-2xl font-bold" data-lang-key="category.plushies">Plushies</h3>
+              </div>
+            </div>
+          </a>
+          <!-- Category Card 3 -->
+          <a href="#" class="group block">
+            <div class="relative rounded-lg overflow-hidden shadow-md h-48">
+              <img src="https://placehold.co/300x200/DBEAFE/60A5FA?text=Games" alt="Games & Puzzles"
+                class="w-full h-full object-cover transition duration-300 transform group-hover:scale-110">
+              <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <h3 class="text-white text-2xl font-bold" data-lang-key="category.games">Games</h3>
+              </div>
+            </div>
+          </a>
+          <!-- Category Card 4 -->
+          <a href="#" class="group block">
+            <div class="relative rounded-lg overflow-hidden shadow-md h-48">
+              <img src="https://placehold.co/300x200/FEF9C3/FACC15?text=Outdoor" alt="Outdoor Play"
+                class="w-full h-full object-cover transition duration-300 transform group-hover:scale-110">
+              <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <h3 class="text-white text-2xl font-bold" data-lang-key="category.outdoor">Outdoor</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Us Snippet -->
+    <section id="about" class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-8 md:mb-0">
+          <img src="https://placehold.co/500x350/E0E7FF/6366F1?text=Our+Workshop" alt="Toy workshop"
+            class="rounded-lg shadow-xl"
+            onerror="this.onerror=null;this.src='https://placehold.co/500x350/E0E0E0/B0B0B0?text=Our+Story';">
+        </div>
+        <div class="md:w-1/2 md:pl-12">
+          <span class="text-blue-600 font-semibold uppercase" data-lang-key="about.mission">Our Mission</span>
+          <h2 class="text-3xl font-bold mt-2 mb-4" data-lang-key="about.title">Committed to Safe & Creative Play</h2>
+          <p class="text-gray-600 text-lg mb-6" data-lang-key="about.desc">
+            At SparkleToys, we believe that play is the most important work of childhood. That's why we're dedicated to
+            creating high-quality, safe, and innovative toys that spark imagination, build skills, and create lasting
+            memories for children and families everywhere.
+          </p>
+          <a href="#" class="text-blue-600 font-bold hover:underline flex items-center">
+            <span data-lang-key="about.learnMore">Learn More About Us</span>
+            <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section id="contact" class="py-16 bg-blue-600 text-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-4" data-lang-key="newsletter.title">Get the Fun Delivered!</h2>
+        <p class="text-lg text-blue-100 mb-8 max-w-2xl mx-auto" data-lang-key="newsletter.desc">
+          Sign up for our newsletter to get exclusive deals, new toy announcements, and playful ideas sent straight to
+          your inbox.
+        </p>
+        <form class="flex flex-col sm:flex-row justify-center max-w-lg mx-auto">
+          <input type="email" data-lang-key="newsletter.email" placeholder="Enter your email"
+            class="w-full sm:w-auto flex-grow px-5 py-3 rounded-full text-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-300 mb-3 sm:mb-0 sm:mr-3"
+            required>
+          <button type="submit"
+            class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-gray-100 shadow-lg transition duration-300 transform hover:scale-105"
+            data-lang-key="newsletter.button">
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 py-12">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- Company Info -->
+        <div>
+          <h3 class="text-lg font-semibold text-white mb-4" data-lang-key="header.title">SparkleToys</h3>
+          <p class="text-sm" data-lang-key="footer.desc">Creating the next generation of play, safely and sustainably.
+          </p>
+          <div class="flex space-x-4 mt-4">
+            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="w-6 h-6"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="w-6 h-6"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="youtube" class="w-6 h-6"></i></a>
+          </div>
+        </div>
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-md font-semibold text-white mb-4 uppercase" data-lang-key="footer.shop">Shop</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white" data-lang-key="footer.shop.building">Building</a></li>
+            <li><a href="#" class="hover:text-white" data-lang-key="footer.shop.plushies">Plushies</a></li>
+            <li><a href="#" class="hover:text-white" data-lang-key="footer.shop.games">Games & Puzzles</a></li>
+            <li><a href="#" class="hover:text-white" data-lang-key="footer.shop.new">New Arrivals</a></li>
+          </ul>
+        </div>
+        <!-- Company Links -->
+        <div>
+          <h4 class="text-md font-semibold text-white mb-4 uppercase" data-lang-key="footer.company">Company</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white" data-lang-key="footer.company.about">About Us</a></li>
+            <li><a href="#" class="hover:text-white" data-lang-key="footer.company.careers">Careers</a></li>
+            <li><a href="#" class="hover:text-white" data-lang-key="footer.company.press">Press</a></li>
+            <li><a href="#" class="hover:text-white" data-lang-key="footer.company.safety">Safety</a></li>
+          </ul>
+        </div>
+        <!-- Customer Service -->
+        <div>
+          <h4 class="text-md font-semibold text-white mb-4 uppercase" data-lang-key="footer.support">Support</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white" data-lang-key="footer.support.contact">Contact Us</a></li>
+            <li><a href="#" class="hover:text-white" data-lang-key="footer.support.faq">FAQ</a></li>
+            <li><a href="#" class="hover:text-white" data-lang-key="footer.support.shipping">Shipping & Returns</a></li>
+            <li><a href="#" class="hover:text-white" data-lang-key="footer.support.privacy">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm">
+        <p data-lang-key="footer.copyright">&copy; 2025 SparkleToys. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Custom Alert Modal -->
+  <div id="alert-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-8 rounded-lg shadow-2xl text-center max-w-sm mx-auto">
+      <div class="flex justify-center items-center w-16 h-16 rounded-full bg-green-100 text-green-600 mx-auto mb-4">
+        <i data-lucide="check" class="w-10 h-10"></i>
+      </div>
+      <h3 class="text-2xl font-semibold mb-2" data-lang-key="modal.title">Added to Cart!</h3>
+      <p class="text-gray-600 mb-6" id="alert-message" data-lang-key="modal.message">The item has been successfully
+        added to your cart.</p>
+      <button id="alert-close-btn"
+        class="bg-blue-600 text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition duration-300"
+        data-lang-key="modal.button">
+        Got it!
+      </button>
+    </div>
+  </div>
+
+
+  <script>
+    // --- Translation Data ---
+    const translations = {
+      en: {
+        // Header
+        'header.title': 'SparkleToys',
+        'nav.home': 'Home',
+        'nav.shop': 'Shop',
+        'nav.about': 'About Us',
+        'nav.contact': 'Contact',
+        'header.search': 'Search...',
+        // Hero
+        'hero.title': 'Spark Imagination.',
+        'hero.subtitle': 'Discover toys that inspire creativity and endless hours of fun.',
+        'hero.button': 'Shop Now',
+        // Featured Products
+        'featured.title': 'Featured Toys',
+        'product1.name': 'CuddleWing Dragon',
+        'product1.desc': 'The softest dragon in all the land. Ready for adventure!',
+        'product.add': 'Add',
+        'product2.name': 'RoboBuilder Kit',
+        'product2.desc': 'Build and code your very own robot companion.',
+        'product3.name': 'Classic Wood Blocks',
+        'product3.desc': '100-piece set for limitless building possibilities.',
+        'product4.name': 'Creator\'s Art Easel',
+        'product4.desc': 'Double-sided easel with whiteboard and chalkboard.',
+        // Categories
+        'categories.title': 'Shop by Category',
+        'category.building': 'Building',
+        'category.plushies': 'Plushies',
+        'category.games': 'Games',
+        'category.outdoor': 'Outdoor',
+        // About
+        'about.mission': 'Our Mission',
+        'about.title': 'Committed to Safe & Creative Play',
+        'about.desc': "At SparkleToys, we believe that play is the most important work of childhood. That's why we're dedicated to creating high-quality, safe, and innovative toys that spark imagination, build skills, and create lasting memories for children and families everywhere.",
+        'about.learnMore': 'Learn More About Us',
+        // Newsletter
+        'newsletter.title': 'Get the Fun Delivered!',
+        'newsletter.desc': 'Sign up for our newsletter to get exclusive deals, new toy announcements, and playful ideas sent straight to your inbox.',
+        'newsletter.email': 'Enter your email',
+        'newsletter.button': 'Subscribe',
+        // Footer
+        'footer.desc': 'Creating the next generation of play, safely and sustainably.',
+        'footer.shop': 'Shop',
+        'footer.shop.building': 'Building',
+        'footer.shop.plushies': 'Plushies',
+        'footer.shop.games': 'Games & Puzzles',
+        'footer.shop.new': 'New Arrivals',
+        'footer.company': 'Company',
+        'footer.company.about': 'About Us',
+        'footer.company.careers': 'Careers',
+        'footer.company.press': 'Press',
+        'footer.company.safety': 'Safety',
+        'footer.support': 'Support',
+        'footer.support.contact': 'Contact Us',
+        'footer.support.faq': 'FAQ',
+        'footer.support.shipping': 'Shipping & Returns',
+        'footer.support.privacy': 'Privacy Policy',
+        'footer.copyright': '© 2025 SparkleToys. All rights reserved.',
+        // Modal
+        'modal.title': 'Added to Cart!',
+        'modal.message': 'The item has been successfully added to your cart.',
+        'modal.button': 'Got it!',
+        'modal.dynamicMessage': '"{productName}" has been successfully added to your cart!',
+      },
+      zh: {
+        // Header
+        'header.title': '闪耀玩具',
+        'nav.home': '首页',
+        'nav.shop': '商店',
+        'nav.about': '关于我们',
+        'nav.contact': '联系方式',
+        'header.search': '搜索...',
+        // Hero
+        'hero.title': '激发想象力。',
+        'hero.subtitle': '发现激发创造力和无尽乐趣的玩具。',
+        'hero.button': '立即选购',
+        // Featured Products
+        'featured.title': '特色玩具',
+        'product1.name': '抱抱龙',
+        'product1.desc': '全地最柔软的龙。准备好冒险！',
+        'product.add': '添加',
+        'product2.name': '机器人建造套件',
+        'product2.desc': '构建和编程你自己的机器人伙伴。',
+        'product3.name': '经典木制积木',
+        'product3.desc': '100件套装，实现无限搭建可能性。',
+        'product4.name': '创作者画架',
+        'product4.desc': '双面画架，带白板和黑板。',
+        // Categories
+        'categories.title': '按类别购物',
+        'category.building': '搭建类',
+        'category.plushies': '毛绒玩具',
+        'category.games': '游戏类',
+        'category.outdoor': '户外玩具',
+        // About
+        'about.mission': '我们的使命',
+        'about.title': '致力于安全与创意的游戏',
+        'about.desc': '在闪耀玩具，我们相信玩耍是童年最重要的工作。因此，我们致力于创造高品质、安全、创新的玩具，为全世界的儿童和家庭激发想象力、培养技能并创造持久的回忆。',
+        'about.learnMore': '了解更多关于我们',
+        // Newsletter
+        'newsletter.title': '将乐趣送到您手中！',
+        'newsletter.desc': '订阅我们的时事通讯，获取独家优惠、新玩具公告和有趣的创意，直接发送到您的收件箱。',
+        'newsletter.email': '输入您的电子邮件',
+        'newsletter.button': '订阅',
+        // Footer
+        'footer.desc': '安全、可持续地创造下一代游戏。',
+        'footer.shop': '商店',
+        'footer.shop.building': '搭建类',
+        'footer.shop.plushies': '毛绒玩具',
+        'footer.shop.games': '游戏与拼图',
+        'footer.shop.new': '新品上市',
+        'footer.company': '公司',
+        'footer.company.about': '关于我们',
+        'footer.company.careers': '工作机会',
+        'footer.company.press': '媒体报道',
+        'footer.company.safety': '安全须知',
+        'footer.support': '支持',
+        'footer.support.contact': '联系我们',
+        'footer.support.faq': '常见问题',
+        'footer.support.shipping': '运输与退货',
+        'footer.support.privacy': '隐私政策',
+        'footer.copyright': '© 2025 闪耀玩具。版权所有。',
+        // Modal
+        'modal.title': '已添加到购物车！',
+        'modal.message': '该商品已成功添加到您的购物车。',
+        'modal.button': '知道了！',
+        'modal.dynamicMessage': '"{productName}" 已成功添加到您的购物车！',
+      }
+    };
+
+    let currentLanguage = 'en'; // Default language
+
+    // --- Language Update Function ---
+    function updateLanguage(lang) {
+      currentLanguage = lang;
+      document.documentElement.lang = lang; // Update the page's lang attribute
+
+      // Update all elements with data-lang-key
+      document.querySelectorAll('[data-lang-key]').forEach(element => {
+        const key = element.getAttribute('data-lang-key');
+        const translation = translations[lang][key];
+
+        if (translation !== undefined) {
+          if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            if (element.type === 'email' || element.type === 'text') {
+              element.placeholder = translation;
+            }
+          } else {
+            element.textContent = translation;
+          }
+        }
+      });
+
+      // Update active state on language buttons
+      const allLangButtons = document.querySelectorAll('.lang-btn');
+      allLangButtons.forEach(btn => btn.classList.remove('active'));
+
+      document.querySelectorAll(`#lang-${lang}-btn, #lang-${lang}-btn-mobile`).forEach(btn => {
+        if (btn) btn.classList.add('active');
+      });
+    }
+
+    // Wait for the window to be fully loaded
+    window.onload = function () {
+      // Initialize Lucide icons
+      try {
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        } else {
+          console.error('Lucide library not loaded.');
+        }
+      } catch (e) {
+        console.error('Error creating lucide icons:', e);
+      }
+
+      // --- Language Switcher Event Listeners ---
+      const langButtons = [
+        document.getElementById('lang-en-btn'),
+        document.getElementById('lang-zh-btn'),
+        document.getElementById('lang-en-btn-mobile'),
+        document.getElementById('lang-zh-btn-mobile'),
+      ];
+
+      langButtons.forEach(btn => {
+        if (btn) {
+          btn.addEventListener('click', (e) => {
+            const lang = e.target.id.includes('zh') ? 'zh' : 'en';
+            updateLanguage(lang);
+          });
+        }
+      });
+
+      // --- Mobile Menu Toggle ---
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+          // Toggle icon
+          const icon = menuBtn.querySelector('i');
+          if (mobileMenu.classList.contains('hidden')) {
+            icon.setAttribute('data-lucide', 'menu');
+          } else {
+            icon.setAttribute('data-lucide', 'x');
+          }
+
+          // Re-render icons after changing attributes
+          if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+          }
+        });
+      }
+
+      // --- Custom Alert Modal Logic ---
+      const alertModal = document.getElementById('alert-modal');
+      const alertCloseBtn = document.getElementById('alert-close-btn');
+      const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+      function showAlert(productName) {
+        // Use translated dynamic message
+        let message = translations[currentLanguage]['modal.dynamicMessage'];
+        if (productName) {
+          message = message.replace('{productName}', productName);
+        } else {
+          // Fallback to static message if product name not found
+          message = translations[currentLanguage]['modal.message'];
+        }
+
+        const alertMessageEl = document.getElementById('alert-message');
+        if (alertMessageEl) {
+          alertMessageEl.textContent = message;
+        }
+
+        // Update static modal text as well
+        document.querySelector('#alert-modal [data-lang-key="modal.title"]').textContent = translations[currentLanguage]['modal.title'];
+        document.querySelector('#alert-modal [data-lang-key="modal.button"]').textContent = translations[currentLanguage]['modal.button'];
+
+
+        if (alertModal) {
+          alertModal.classList.remove('hidden');
+          alertModal.classList.add('visible');
+        }
+      }
+
+      function hideAlert() {
+        if (alertModal) {
+          alertModal.classList.add('hidden');
+          alertModal.classList.remove('visible');
+        }
+      }
+
+      addToCartButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          let productName = '';
+          // Get product name from the card
+          const card = button.closest('.p-6');
+          if (card) {
+            const productNameEl = card.querySelector('h3');
+            if (productNameEl) {
+              // Get translated product name
+              const productKey = productNameEl.getAttribute('data-lang-key');
+              productName = translations[currentLanguage][productKey] || productNameEl.textContent;
+            }
+          }
+          showAlert(productName);
+        });
+      });
+
+      if (alertCloseBtn) {
+        alertCloseBtn.addEventListener('click', hideAlert);
+      }
+      // Also close modal if clicking on the background overlay
+      if (alertModal) {
+        alertModal.addEventListener('click', (e) => {
+          if (e.target === alertModal) {
+            hideAlert();
+          }
+        });
+      }
+
+      // --- Set Initial Language ---
+      // You could expand this to check browser language if desired
+      updateLanguage('en');
+    };
+  </script>
+</body>
+
+</html>

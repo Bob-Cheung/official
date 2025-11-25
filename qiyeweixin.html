@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send to WeCom</title>
+  <script src="./utils.js"></script>
+</head>
+
+<body>
+  <input type="text" id="phone" placeholder="请输入手机号">
+  <textarea id="msg" cols="30" rows="10" placeholder="请输入留言"></textarea>
+  <button id="btn" onclick="btn()">提交</button>
+
+
+  <script>
+    function btn() {
+      const WEBHOOK = "http://localhost:8080/https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=643ae9a4-79cb-4fde-96b4-5a5eb6c090d4";
+      const phone = document.getElementById("phone").value.trim();
+      const msg = document.getElementById("msg").value.trim();
+      if (!phone) return alert("请输入手机号");
+      if (!msg) return alert("请输入留言");
+      const data = { phone: phone, msg: msg };
+      send(data, WEBHOOK);
+    }
+  </script>
+</body>
+
+</html>
