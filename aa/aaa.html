@@ -8,53 +8,12 @@
   <!-- Load Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Load Inter font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"> -->
   <!-- Load Lucide icons -->
-  <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+  <!-- <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script> -->
+  <script src="./utils.js"></script>
+  <link rel="stylesheet" href="./index.css">
 
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-
-    /* Custom modal styles */
-    #alert-modal {
-      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-    }
-
-    #alert-modal.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    #alert-modal.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* Simple spinning animation for the logo */
-    .logo-spin {
-      animation: spin 3s linear infinite;
-    }
-
-    @keyframes spin {
-      from {
-        transform: rotateY(0deg);
-      }
-
-      to {
-        transform: rotateY(360deg);
-      }
-    }
-
-    /* Style for active language button */
-    .lang-btn.active {
-      font-weight: bold;
-      color: #2563EB;
-      /* blue-600 */
-      text-decoration: underline;
-    }
-  </style>
 </head>
 
 <body class="bg-gray-50 text-gray-800">
@@ -83,16 +42,16 @@
       <!-- Icons (Desktop) -->
       <div class="hidden md:flex items-center space-x-4">
         <div class="relative">
-          <input type="text" data-lang-key="header.search" placeholder="Search..."
-            class="px-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <!-- <input type="text" data-lang-key="header.search" placeholder="Search..."
+            class="px-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"> -->
           <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600">
             <i data-lucide="search" class="w-5 h-5"></i>
           </button>
         </div>
-        <a href="#" class="relative text-gray-600 hover:text-blue-600 p-2 rounded-full hover:bg-gray-100">
+        <!-- <a href="#" class="relative text-gray-600 hover:text-blue-600 p-2 rounded-full hover:bg-gray-100">
           <i data-lucide="shopping-cart" class="w-6 h-6"></i>
           <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-blue-500 ring-2 ring-white"></span>
-        </a>
+        </a> -->
         <!-- Language Switcher (Desktop) -->
         <div class="flex space-x-2 text-sm font-medium">
           <button id="lang-en-btn" class="lang-btn text-gray-500 hover:text-blue-600">English</button>

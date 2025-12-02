@@ -1,4 +1,134 @@
 <!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>留言提交到企业微信</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      font-family: sans-serif;
+    }
+
+    input,
+    textarea,
+    button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #90CAF9;
+      cursor: not-allowed;
+    }
+
+    button:hover:not(:disabled) {
+      background-color: #1976D2;
+    }
+
+    .tip {
+      color: #666;
+      font-size: 14px;
+      margin: 4px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>留言提交</h2>
+  <input type="text" id="phone" placeholder="请输入手机号" maxlength="11">
+  <p class="tip">仅支持11位中国大陆手机号</p>
+  <textarea id="msg" cols="30" rows="10" placeholder="请输入留言内容"></textarea>
+  <button id="btn" onclick="submitForm()">提交</button>
+
+  <script>
+    // 替换为你的 Cloudflare Workers 触发URL！！！
+    const WEBHOOK_URL = "https://royal-sun-7d97.2460106543.workers.dev";
+
+    async function submitForm() {
+      const phone = document.getElementById("phone").value.trim();
+      const msg = document.getElementById("msg").value.trim();
+      const btn = document.getElementById("btn");
+
+      // 1. 表单验证
+      if (!phone) return alert("请输入手机号");
+      if (!/^1[3-9]\d{9}$/.test(phone)) return alert("请输入有效的11位手机号");
+      if (!msg) return alert("请输入留言内容");
+      if (msg.length > 500) return alert("留言内容不能超过500字");
+
+      // 2. 防止重复提交
+      btn.disabled = true;
+      btn.innerText = "提交中...";
+
+      try {
+        // 3. 组装企业微信消息格式（文本类型）
+        const requestData = {
+          msgtype: "text",
+          text: {
+            content: `📩 新留言通知\n\n📱 手机号：${phone}\n💬 留言内容：\n${msg}\n\n⏰ 提交时间：${new Date().toLocaleString()}`
+          }
+        };
+
+        // 4. 发送请求到代理地址（不再直接请求企业微信）
+        const response = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          body: JSON.stringify(requestData),
+          mode: "cors"
+        });
+
+        const result = await response.json();
+        if (result.errcode === 0) {
+          alert("提交成功！我们会尽快联系你～");
+          document.getElementById("phone").value = "";
+          document.getElementById("msg").value = "";
+        } else {
+          alert(`提交失败：${result.errmsg}`);
+        }
+      } catch (error) {
+        console.error("发送失败：", error);
+        alert("网络异常，请稍后重试～");
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "提交";
+      }
+    }
+
+    // 手机号过滤非数字
+    document.getElementById("phone").addEventListener("input", function (e) {
+      this.value = this.value.replace(/\D/g, "");
+    });
+  </script>
+</body>
+
+</html>
+
+
+
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -27,4 +157,4 @@
   </script>
 </body>
 
-</html>
+</html> -->

@@ -1,0 +1,41 @@
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Custom modal styles */
+#alert-modal {
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+#alert-modal.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#alert-modal.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Simple spinning animation for the logo */
+.logo-spin {
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* Style for active language button */
+.lang-btn.active {
+  font-weight: bold;
+  color: #2563EB;
+  /* blue-600 */
+  text-decoration: underline;
+}
