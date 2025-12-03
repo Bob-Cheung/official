@@ -46,8 +46,8 @@
       background-color: #1976D2;
     }
 
-    .tip {
-      color: #666;
+    #tip {
+      color: red;
       font-size: 14px;
       margin: 4px 0;
     }
@@ -56,8 +56,8 @@
 
 <body>
   <h2>留言提交</h2>
-  <input type="text" id="phone" placeholder="请输入手机号" maxlength="11">
-  <p class="tip">仅支持11位中国大陆手机号</p>
+  <input type="text" id="email" placeholder="请输入邮箱号">
+  <!-- <p id="tip">请输入正确邮箱号</p> -->
   <textarea id="msg" cols="30" rows="10" placeholder="请输入留言内容"></textarea>
   <button id="btn" onclick="submitForm()">提交</button>
 
@@ -66,13 +66,16 @@
     const WEBHOOK_URL = "https://royal-sun-7d97.2460106543.workers.dev";
 
     async function submitForm() {
-      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
       const msg = document.getElementById("msg").value.trim();
       const btn = document.getElementById("btn");
 
       // 1. 表单验证
-      if (!phone) return alert("请输入手机号");
-      if (!/^1[3-9]\d{9}$/.test(phone)) return alert("请输入有效的11位手机号");
+      if (!email) return alert("请输入邮箱号");
+      // 邮箱正则表达式（匹配主流邮箱格式）
+      if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email)) {
+        return alert("请输入有效的邮箱号");
+      }
       if (!msg) return alert("请输入留言内容");
       if (msg.length > 500) return alert("留言内容不能超过500字");
 
@@ -85,7 +88,7 @@
         const requestData = {
           msgtype: "text",
           text: {
-            content: `📩 新留言通知\n\n📱 手机号：${phone}\n💬 留言内容：\n${msg}\n\n⏰ 提交时间：${new Date().toLocaleString()}`
+            content: `📩 新留言通知\n\n📱 手机号：${email}\n💬 留言内容：\n${msg}\n\n⏰ 提交时间：${new Date().toLocaleString()}`
           }
         };
 
@@ -102,7 +105,7 @@
         const result = await response.json();
         if (result.errcode === 0) {
           alert("提交成功！我们会尽快联系你～");
-          document.getElementById("phone").value = "";
+          document.getElementById("email").value = "";
           document.getElementById("msg").value = "";
         } else {
           alert(`提交失败：${result.errmsg}`);
@@ -115,11 +118,6 @@
         btn.innerText = "提交";
       }
     }
-
-    // 手机号过滤非数字
-    document.getElementById("phone").addEventListener("input", function (e) {
-      this.value = this.value.replace(/\D/g, "");
-    });
   </script>
 </body>
 
@@ -139,7 +137,7 @@
 </head>
 
 <body>
-  <input type="text" id="phone" placeholder="请输入手机号">
+  <input type="text" id="email" placeholder="请输入手机号">
   <textarea id="msg" cols="30" rows="10" placeholder="请输入留言"></textarea>
   <button id="btn" onclick="btn()">提交</button>
 
@@ -147,11 +145,11 @@
   <script>
     function btn() {
       const WEBHOOK = "http://localhost:8080/https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=643ae9a4-79cb-4fde-96b4-5a5eb6c090d4";
-      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
       const msg = document.getElementById("msg").value.trim();
-      if (!phone) return alert("请输入手机号");
+      if (!email) return alert("请输入手机号");
       if (!msg) return alert("请输入留言");
-      const data = { phone: phone, msg: msg };
+      const data = { email: email, msg: msg };
       send(data, WEBHOOK);
     }
   </script>
